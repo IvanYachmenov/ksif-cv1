@@ -51,7 +51,7 @@ public class Math {
     }
 
     public static void gen_random_char() {
-
+        return;
     }
 
 }
