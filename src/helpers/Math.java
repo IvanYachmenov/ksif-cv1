@@ -1,4 +1,7 @@
 package helpers;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Math {
@@ -51,7 +54,22 @@ public class Math {
     }
 
     public static void gen_random_char() {
-        return;
+        Random rnd = new Random(System.currentTimeMillis());
+        List<Character> chars = new ArrayList<Character>();
+
+        for (int i = 0; i < 26; i++) {
+            chars.add((char) ('a' + rnd.nextInt(26)));
+            System.out.println(chars.get(i));
+        }
+
+        Collections.sort(chars);
+        System.out.println(chars);
+        System.out.println(chars.stream().distinct().toArray().length);
+    }
+
+
+    public static void main(String[] args) {
+        gen_random_char();
     }
 
 }
