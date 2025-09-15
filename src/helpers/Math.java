@@ -1,11 +1,9 @@
 package helpers;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Math {
 
+    //1.1-1
     public static boolean isPrime(int input) {
         if (input < 2 || input % 2 == 0) {
             return false;
@@ -19,6 +17,7 @@ public class Math {
         return true;
     }
 
+    //1.1-2
     public static int factorial(int n) {
         if (n == 1) {
             return 1;
@@ -28,6 +27,7 @@ public class Math {
         }
     }
 
+    //1.2
     public static void gen_random() {
         int rnum;
         Random rnd = new Random(System.currentTimeMillis());
@@ -38,6 +38,7 @@ public class Math {
         } while (!isPrime(rnum));
     }
 
+    //1.3
     public static void gen_random_prime() {
         int count;
         int prime;
@@ -53,6 +54,7 @@ public class Math {
         System.out.println("Total: " + count);
     }
 
+    //1.4
     public static void gen_random_char() {
         Random rnd = new Random(System.currentTimeMillis());
         List<Character> chars = new ArrayList<Character>();
@@ -67,9 +69,53 @@ public class Math {
         System.out.println(chars.stream().distinct().toArray().length);
     }
 
+    //1.5
+    public static void conversion() {
+        List<String> names = Arrays.asList("Ivan", "Adam", "George");
+        String[] names_array = new String[names.size()];
+        names.toArray(names_array);
+
+        System.out.println(names);
+        System.out.println(Arrays.toString(names_array));
+    }
+
+    //1.6
+    public static void creation_deletion_str() {
+        Random rnd = new Random(System.currentTimeMillis());
+        StringBuilder rand_nums = new StringBuilder();
+        int num;
+        for(int i = 0; i < 100; i++) {
+            num = rnd.nextInt(100) + 1;
+            if (num % 2 == 0) {
+                rand_nums.append(num);
+            }
+            if (i != 99) {
+                rand_nums.append(",");
+            }
+
+        }
+        String regex = ",";
+        String rand_nums_str = rand_nums.toString();
+        String[] splitted = rand_nums_str.split(regex);
+        Integer[] splitted_int = new Integer[splitted.length];
+
+        int idx = 0;
+        for(String s : splitted) {
+            splitted_int[idx] = Integer.parseInt(s);
+            idx++;
+        }
+
+        String back_to_unsplitted = Arrays.toString(splitted_int);
+        back_to_unsplitted = back_to_unsplitted.replace("[", "");
+        back_to_unsplitted = back_to_unsplitted.replace("]", "");
+        System.out.println(back_to_unsplitted);
+    }
+
+
 
     public static void main(String[] args) {
-        gen_random_char();
+        //gen_random_char();
+        conversion();
     }
 
 }
