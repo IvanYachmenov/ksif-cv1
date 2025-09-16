@@ -1,4 +1,7 @@
 package helpers;
+import javax.swing.*;
+import java.io.File;
+import java.text.Normalizer;
 import java.util.*;
 
 public class Math {
@@ -28,7 +31,7 @@ public class Math {
     }
 
     //1.2
-    public static void gen_random() {
+    public static void genRandom() {
         int rnum;
         Random rnd = new Random(System.currentTimeMillis());
         do{
@@ -39,7 +42,7 @@ public class Math {
     }
 
     //1.3
-    public static void gen_random_prime() {
+    public static void genRandomPrime() {
         int count;
         int prime;
         int rnum;
@@ -80,7 +83,7 @@ public class Math {
     }
 
     //1.6
-    public static void creation_deletion_str() {
+    public static void creationDeletionStr() {
         Random rnd = new Random(System.currentTimeMillis());
         StringBuilder rand_nums = new StringBuilder();
         int num;
@@ -111,11 +114,40 @@ public class Math {
         System.out.println(back_to_unsplitted);
     }
 
+    //1.7
+    public static String convertToTSA(String text, boolean is_space) {
+        StringBuilder sb = new StringBuilder();
+        for(char letter : text.toLowerCase().toCharArray()) {
+            sb.append(letter);
+        }
+        String lower_text = sb.toString();
+        String normalized = Normalizer.normalize(lower_text, Normalizer.Form.NFD);
+        normalized = normalized.replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}+", "");
+        if (is_space) {
+            normalized = normalized.replace(" ", "");
+        }
+        return normalized;
+    }
 
+    //1.8
+
+    public static File pickFromFileChooser() {
+        JFileChooser j = new JFileChooser();
+        j.setDialogTitle("Choose a file . . .");
+
+        // ... TODO)
+
+        int f = j.showSaveDialog(null);
+        if (f == JFileChooser.APPROVE_OPTION) {
+            return j.getSelectedFile();
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         //gen_random_char();
-        conversion();
+        //conversion();
+
     }
 
 }
