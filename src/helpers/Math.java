@@ -145,7 +145,7 @@ public class Math {
         return null;
     }
 
-    //1.9
+    //1.9-1
     public static boolean writeText(File file, String content) {
         if (file.exists()) {
             BufferedWriter bw = null;
@@ -164,7 +164,7 @@ public class Math {
         return false;
     }
 
-    //1.10
+    //1.9-2
     public static String readText(File file) {
         StringBuilder sb = new StringBuilder();
         if  (file.exists()) {
@@ -184,6 +184,26 @@ public class Math {
             }
         }
         return sb.toString();
+    }
+
+    //1.10-1
+    public static Object readFromFile(String path) {
+        try {
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            return ois.readObject();
+        } catch (Exception _) { }
+        return null;
+    }
+
+    //1.10-2
+    public static void saveToFile(Object o, String path) {
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(o);
+            oos.close();
+        } catch (Exception _) { }
     }
 
     public static void main(String[] args) {
