@@ -1,6 +1,6 @@
 package helpers;
 import javax.swing.*;
-import java.io.File;
+import java.io.*;
 import java.text.Normalizer;
 import java.util.*;
 
@@ -130,18 +130,60 @@ public class Math {
     }
 
     //1.8
-
     public static File pickFromFileChooser() {
         JFileChooser j = new JFileChooser();
-        j.setDialogTitle("Choose a file . . .");
 
-        // ... TODO)
+        j.setCurrentDirectory(new File("."));
+        j.setDialogTitle("Choose the file . . .");
+        j.setMultiSelectionEnabled(false);
+        j.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         int f = j.showSaveDialog(null);
         if (f == JFileChooser.APPROVE_OPTION) {
             return j.getSelectedFile();
         }
         return null;
+    }
+
+    //1.9
+    public static boolean writeText(File file, String content) {
+        if (file.exists()) {
+            BufferedWriter bw = null;
+            try {
+                bw = new BufferedWriter(new FileWriter(file));
+                bw.write(content);
+                bw.flush();
+                return true;
+            } catch (IOException _) {
+            } finally {
+                try {
+                    bw.close();
+                } catch (IOException _) {}
+            }
+        }
+        return false;
+    }
+
+    //1.10
+    public static String readText(File file) {
+        StringBuilder sb = new StringBuilder();
+        if  (file.exists()) {
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+            } catch (IOException _) {
+                sb = null;
+            } finally {
+                try {
+                    br.close();
+                } catch (IOException _) {}
+            }
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
