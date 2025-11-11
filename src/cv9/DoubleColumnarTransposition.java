@@ -1,4 +1,4 @@
-package cv9.multiple_difficult;
+package cv9;
 
 import cv4.SingleColumnarTransposition;
 

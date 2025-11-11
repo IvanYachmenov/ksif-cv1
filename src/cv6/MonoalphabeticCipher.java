@@ -1,47 +1,35 @@
 package cv6;
 
 import static cv3.InversionPermutation.inverse;
-import static cv3.RandomPermutation.rndPerm;
 
 public class MonoalphabeticCipher {
 
-    Character[] key, inverseKey;
+    private final Character[] key;
+    private final Character[] inverseKey;
 
-    public MonoalphabeticCipher(){
-        rndKey();
-    }
-
-    public MonoalphabeticCipher(Character[] key){
+    public MonoalphabeticCipher(Character[] key) {
+        if (key == null || key.length != 26) {
+            throw new IllegalArgumentException("Key must have 26 letters (a..z)");
+        }
         this.key = key;
         this.inverseKey = inverse(key);
     }
 
-    public void rndKey() {
-        Character[] alphabet = new Character[26];
-        for (int i = 0; i < 26; i++) {
-            alphabet[i] = (char) ('a' + i);
-        }
-        rndPerm(alphabet);
-        this.key = alphabet;
-        this.inverseKey = inverse(alphabet);
-    }
-
     public String encrypt(String plainText) {
-        StringBuilder cipherText = new StringBuilder();
-
-        for(char letter : plainText.toCharArray()) {
-            cipherText.append(this.key[letter - 'a']);
+        StringBuilder sb = new StringBuilder(plainText.length());
+        for (char ch : plainText.toCharArray()) {
+            int idx = ch - 'a';
+            sb.append(key[idx]);
         }
-        return cipherText.toString();
+        return sb.toString();
     }
 
     public String decrypt(String cipherText) {
-        StringBuilder plainText = new StringBuilder();
-
-        for(char letter : cipherText.toCharArray()) {
-            plainText.append(this.inverseKey[letter - 'a']);
+        StringBuilder sb = new StringBuilder(cipherText.length());
+        for (char ch : cipherText.toCharArray()) {
+            int idx = ch - 'a';
+            sb.append(inverseKey[idx]);
         }
-        return plainText.toString();
+        return sb.toString();
     }
-
 }

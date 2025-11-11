@@ -1,4 +1,4 @@
-package cv9.multiple_difficult;
+package cv9;
 
 import cv4.SingleColumnarTransposition;
 import cv6.MonoalphabeticCipher;
@@ -8,8 +8,6 @@ public class STPCipher {
     MonoalphabeticCipher mas;
     SingleColumnarTransposition sct;
     VigenereCipher vc;
-
-    private STPCipher() {}
 
     public STPCipher(MonoalphabeticCipher mas,
                      SingleColumnarTransposition sct,

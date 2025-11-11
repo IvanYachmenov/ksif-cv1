@@ -3,7 +3,7 @@ package cv4;
 import cv3.PermutationFromPhrase;
 import java.util.ArrayList;
 import java.util.List;
-;
+
 
 public class SingleColumnarTransposition {
     public Integer[] key;
