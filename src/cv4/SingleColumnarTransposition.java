@@ -8,8 +8,6 @@ import java.util.List;
 public class SingleColumnarTransposition {
     public Integer[] key;
 
-    public SingleColumnarTransposition(){}
-
     public SingleColumnarTransposition(Integer[] key){
         this.key = key;
     }
@@ -21,74 +19,53 @@ public class SingleColumnarTransposition {
     public String encrypt(String plainText) {
         int columns = key.length;
         int rows = plainText.length() / columns;
-        if(plainText.length() % columns > 0) {
-            rows++;
-        }
+        if (plainText.length() % columns > 0) rows++;
 
         char[][] matrix = new char[rows][columns];
-        int i = 0;
-        int j = 0;
-        for(char c : plainText.toCharArray()){
+
+        int i = 0, j = 0;
+        for (char c : plainText.toCharArray()) {
             matrix[i][j++] = c;
-            if(j == columns){
-                i++;
-            }
-            j %= columns;
+            if (j == columns) { j = 0; i++; }
         }
 
-        List<Integer> permList = new ArrayList<>();
-        for(int c = 0; c < columns; c++){
-            permList.add(key[c]);
-        }
-
-        StringBuilder toReturn = new StringBuilder();
-        for(int col = 0; col < columns; col++){
-            int colIdx = permList.indexOf(col);
-            for(int row = 0; row < rows; row++){
-                if(matrix[row][colIdx] != '\u0000'){
-                    toReturn.append(matrix[row][colIdx]);
+        StringBuilder out = new StringBuilder();
+        for (int rank = 0; rank < columns; rank++) {
+            int colIdx = key[rank];
+            for (int r = 0; r < rows; r++) {
+                if (matrix[r][colIdx] != '\u0000') {
+                    out.append(matrix[r][colIdx]);
                 }
             }
         }
-
-        return toReturn.toString();
+        return out.toString();
     }
 
     public String decrypt(String cipherText) {
         int columns = key.length;
         int rows = cipherText.length() / columns;
         int nonCompleteCols = cipherText.length() % columns;
-        if(nonCompleteCols > 0){
-            rows++;
-        }
-        List<Integer> permList = new ArrayList<>();
-        for(int pos = 0; pos < key.length; pos++){
-            permList.add(key[pos]);
-        }
+        if (nonCompleteCols > 0) rows++;
 
         char[][] matrix = new char[rows][columns];
         int idx = 0;
-        for(int col = 0; col < columns; col++){
-            int colIdx = permList.indexOf(col);
-            int maxRowIdx = rows;
 
-            if(nonCompleteCols > 0 && (colIdx >= nonCompleteCols)){
-                maxRowIdx--;
-            }
-
-            for(int row = 0; row < maxRowIdx; row++){
-                matrix[row][colIdx] = cipherText.charAt(idx++);
+        for (int rank = 0; rank < columns; rank++) {
+            int colIdx = key[rank]; // rank -> columnIndex
+            int height = rows - ((nonCompleteCols > 0 && colIdx >= nonCompleteCols) ? 1 : 0);
+            for (int r = 0; r < height; r++) {
+                matrix[r][colIdx] = cipherText.charAt(idx++);
             }
         }
 
-        StringBuilder toReturn = new StringBuilder();
-        for(int row = 0; row < rows; row++){
-            for(int col = 0; col < columns; col++){
-                if(matrix[row][col] != '\u0000'){
-                    toReturn.append(matrix[row][col]);
-                }
+        StringBuilder out = new StringBuilder();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                if (matrix[r][c] != '\u0000') out.append(matrix[r][c]);
             }
         }
-        return toReturn.toString();
+        return out.toString();
     }
+
+
 }

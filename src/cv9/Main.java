@@ -20,31 +20,23 @@ public class Main {
         printBlock(text, enc, dec);
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
+
         //
         System.out.println("Double Columnar Transposition Tests");
-        DoubleColumnarTransposition dct1 = new DoubleColumnarTransposition("keyone", "keytwo");
-        DoubleColumnarTransposition dct2 = new DoubleColumnarTransposition("zebra", "monkey");
-        DoubleColumnarTransposition dct3 = new DoubleColumnarTransposition("crypto", "graph");
 
-        testDCT(dct1, "abc");
-        testDCT(dct2, "aaabbbccc");
-        testDCT(dct3, "attack at dawn");
+        DoubleColumnarTransposition dct1 = new DoubleColumnarTransposition("predmet", "klasickesifry");
+        testDCT(dct1, "testujemevaseimplementaciecivietespravnesifrovatadesifrovat");
 
 
 
         //
         System.out.println("STP Cipher Tests");
+
         Character[] masKey = new Character[]{
-                'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+                'z', 'y', 'x', 'w', 'v', 'u', 't', 's', 'r', 'q', 'p', 'o', 'n', 'm', 'l', 'k', 'j', 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'
         };
-
-        STPCipher stp1 = new STPCipher(masKey, "secret", "message");
-        STPCipher stp2 = new STPCipher(masKey, "alpha",  "beta");
-        STPCipher stp3 = new STPCipher(masKey, "plain",  "key");
-
-        testSTP(stp1, "abc");
-        testSTP(stp2, "aaabbbccc");
-        testSTP(stp3, "thisisatest");
+        STPCipher stp1 = new STPCipher(masKey, "klasicke", "sifry");
+        testSTP(stp1, "testujemevaseimplementaciecivietespravnesifrovatadesifrovat");
     }
 }

@@ -15,8 +15,8 @@ public class DoubleColumnarTransposition {
 
     // from phrase
     public DoubleColumnarTransposition(String key1, String key2) {
-        sct1 = new SingleColumnarTransposition(key1);
-        sct2 = new SingleColumnarTransposition(key2);
+        this.sct1 = new SingleColumnarTransposition(key1);
+        this.sct2 = new SingleColumnarTransposition(key2);
     }
 
     public String encrypt(String plainText) {
